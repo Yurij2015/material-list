@@ -38,7 +38,6 @@ $db = new DB($host, $user, $password, $db_name);
                         <thead>
                         <tr>
                             <th scope="col" class="text-center">Название должности</th>
-                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -48,11 +47,7 @@ $db = new DB($host, $user, $password, $db_name);
                         foreach ($position as $positionitem) {
                             ?>
                             <tr>
-                                <td><?php echo $positionitem["positionname"]; ?></td>
-                                <td>
-                                    <a href="position-remove.php?idposition=<?= $positionitem["idposition"] ?>">Удалить</a>
-
-
+                                <td><?php echo $positionitem["positiontname"]; ?></td>
                             </tr>
                         <?php }
                         ?>

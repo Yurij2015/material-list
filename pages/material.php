@@ -32,16 +32,16 @@ $db = new DB($host, $user, $password, $db_name);
                     <div style="margin: 4px 0 7px 0;">
                         <a href="material-add.php" class="btn btn-info">Добавить материал</a>
                     </div>
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" style="font-size: 11px;">
                         <thead>
                         <tr>
                             <th scope="col" class="text-center">Материал</th>
-                            <th scope="col" class="text-center">Количество</th>
                             <th scope="col" class="text-center">Описание</th>
+                            <th scope="col" class="text-center">Количество</th>
                             <th scope="col" class="text-center">Склад</th>
+                            <th scope="col" class="text-center">Стоимость</th>
                             <th scope="col" class="text-center">Дата добавления</th>
                             <th scope="col" class="text-center">Отвественный</th>
-                            <th></th>
 
                         </tr>
                         </thead>
@@ -52,14 +52,14 @@ $db = new DB($host, $user, $password, $db_name);
                         foreach ($material as $materialitem) {
                             ?>
                             <tr>
-                                <td><?php echo $materialitem["materialname"]; ?></td>
+                                <td><?php echo $materialitem["material_name"]; ?></td>
                                 <td><?php echo $materialitem["notice"]; ?></td>
                                 <td><?php echo $materialitem["count"]; ?></td>
+                                <td><?php echo $materialitem["storename"]; ?></td>
                                 <td><?php echo $materialitem["price"]; ?></td>
                                 <td><?php echo $materialitem["adoptiondate"]; ?></td>
+                                <td><?php echo $materialitem["name"] .  " " . $materialitem["secondname"]; ?></td>
 
-                                <td><a href="material-remove.php?idtask=<?= $materialitem[''] ?>" Удалить</a>
-                                </td>
                             </tr>
                         <?php }
 

@@ -16,21 +16,9 @@ if ($_POST) {
         $secondname = $db->escape($form->getSecondname());
         $position_idposition = $db->escape($form->getPosition());
         $emailempl = $db->escape($form->getEmail());
-
-        $email = $_SESSION['email'];
-        $res = $db->query("SELECT role_idrole FROM `user` WHERE email = '{$email}'");
-        $a = $res[0]['role_idrole'];
-        if ($a == 1 || $a == 2) {
-            $db->query("INSERT INTO employee (`name`, secondname, `position_idposition`, email) VALUES ('{$name}','{$secondname}', 
+        $db->query("INSERT INTO employee (`name`, secondname, `position_idposition`, email) VALUES ('{$name}','{$secondname}', 
 '{$position_idposition}', '{$emailempl}') ");
-            header('location: employee.php?msg=Сотрудник успешно добавлен!');
-
-
-            //print_r ($res); проверка
-            //echo $a; проверка
-        } else {
-            $msg = 'У Вас нет прав на добавление документа!';
-        }
+        header('location: employee.php?msg=Сотрудник успешно добавлен!');
     } else {
         $msg = 'Пожалуйста, заполните все поля';
     }
@@ -80,11 +68,10 @@ if ($_POST) {
                         <label for="idunit">Должность</label>
                         <select class="form-control" name="position_idposition" id="position_idposition">
                             <?php
-                          //  $db = new DB($host, $user, $password, $db_name);
-                            $position = $db->query("SELECT idposition, positionname FROM position");
+                            $position = $db->query("SELECT idposition, positiontname FROM position");
                             foreach ($position as $positionitem) {
                                 ?>
-                                <option value="<?php echo $positionitem['idposition'] ?>"><?php echo $positionitem['positionname'] ?></option>
+                                <option value="<?php echo $positionitem['idposition'] ?>"><?php echo $positionitem['positiontname'] ?></option>
                             <?php } ?>
                         </select>
                     </div>

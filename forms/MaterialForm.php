@@ -8,7 +8,7 @@
 
 class MaterialForm
 {
-    private $materialname;
+    private $material_name;
     private $notice;
     private $count;
     private $price;
@@ -22,7 +22,7 @@ class MaterialForm
      */
     function __construct(Array $data)
     {
-        $this->materialname = isset($data['materialname']) ? $data['materialname'] : null;
+        $this->material_name = isset($data['material_name']) ? $data['material_name'] : null;
         $this->notice = isset($data['notice']) ? $data['notice'] : null;
         $this->count = isset($data['count']) ? $data['count'] : null;
         $this->price = isset($data['price']) ? $data['price'] : null;
@@ -35,7 +35,7 @@ class MaterialForm
 
     public function validate()
     {
-        return !empty($this->materialname) && !empty($this->notice) && !empty($this->count) && !empty($this->price) && !empty($this->storehouse_idstorehouse) && !empty($this->adoptiondate) && !empty($this->responsible_person);
+        return !empty($this->material_name) && !empty($this->notice) && !empty($this->count) && !empty($this->price) && !empty($this->storehouse_idstorehouse) && !empty($this->adoptiondate) && !empty($this->responsible_person);
     }
 
     /**
@@ -43,15 +43,15 @@ class MaterialForm
      */
     public function getMaterialName()
     {
-        return $this->materialname;
+        return $this->material_name;
     }
 
     /**
-     * @param mixed $name
+     * @param mixed $material_name
      */
-    public function setMaterialName($materialname)
+    public function setMaterialName($material_name)
     {
-        $this->materialname = $materialname;
+        $this->material_name = $material_name;
     }
 
     /**
@@ -63,7 +63,7 @@ class MaterialForm
     }
 
     /**
-     * @param mixed $secondname
+     * @param mixed $notice
      */
     public function setNotice($notice)
     {
@@ -103,7 +103,53 @@ class MaterialForm
         $this->price = $price;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getStorehouse_idstorehouse()
+    {
+        return $this->storehouse_idstorehouse;
+    }
 
+    /**
+     * @param mixed $storehouse_idstorehouse
+     */
+    public function setStorehouse_idstorehouse($storehouse_idstorehouse)
+    {
+        $this->storehouse_idstorehouse = $storehouse_idstorehouse;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAdoptiondate()
+    {
+        return $this->adoptiondate;
+    }
+
+    /**
+     * @param mixed $adoptiondate
+     */
+    public function setAdoptiondate($adoptiondate)
+    {
+        $this->adoptiondate = $adoptiondate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResponsible_person()
+    {
+        return $this->responsible_person;
+    }
+
+    /**
+     * @param mixed $responsible_person
+     */
+    public function setResponsible_person($responsible_person)
+    {
+        $this->responsible_person = $responsible_person;
+    }
 
 
 }

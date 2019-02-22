@@ -22,20 +22,8 @@ $form = new PositionForm($_POST);
 if ($_POST) {
     if ($form->validate()) {
         $positionname = $db->escape($form->getPosition());
-
-        $email = $_SESSION['email'];
-        $res = $db->query("SELECT role_idrole FROM `user` WHERE email = '{$email}'");
-        $a = $res[0]['role_idrole'];
-        //if ( $a != 1 ) {
-        if ($a == 1 || $a == 2) {
-            //$msg = 'У Вас нет прав на добавление отделов!';
-            $db->query("INSERT INTO position (`positionname`) VALUES ('{$positionname}') ");
-            header('location: position.php?msg=Должность успешно добавлена!');
-        } else {
-            $msg = 'У Вас нет прав на добавление должности!';
-//			$db->query( "INSERT INTO unit (`unitname`) VALUES ('{$unitname}') " );
-//			header( 'location: unit.php?msg=Отдел успешно добавлен!' );
-        }
+        $db->query("INSERT INTO position (`positiontname`) VALUES ('{$positionname}') ");
+        header('location: position.php?msg=Должность успешно добавлена!');
     } else {
         $msg = 'Пожалуйста, заполните все поля';
     }

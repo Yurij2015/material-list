@@ -40,7 +40,6 @@ $db = new DB($host, $user, $password, $db_name);
                             <th scope="col" class="text-center">Фамилия</th>
                             <th scope="col" class="text-center">Email</th>
                             <th scope="col" class="text-center">Должность</th>
-                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -54,10 +53,7 @@ $db = new DB($host, $user, $password, $db_name);
                                 <td><?php echo $employeeitem["name"]; ?></td>
                                 <td><?php echo $employeeitem["secondname"]; ?></td>
                                 <td><?php echo $employeeitem["email"]; ?></td>
-                                <td><?php echo $employeeitem["positionname"]; ?></td>
-                                <td>
-                                    <a href="employee-remove.php?idemployee=<?= $employeeitem["idemployee"] ?>">Удалить</a>
-                                </td>
+                                <td><?php echo $employeeitem["positiontname"]; ?></td>
                             </tr>
                         <?php }
                         ?>

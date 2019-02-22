@@ -11,21 +11,15 @@ $db = new DB($host, $user, $password, $db_name);
 $form = new MaterialForm($_POST);
 if ($_POST) {
     if ($form->validate()) {
-        $taskname = $db->escape($form->getTaskName());
-        $taskdescription = $db->escape($form->getTaskDescription());
-        $email = $_SESSION['email'];
-        $res = $db->query("SELECT role_idrole FROM `user` WHERE email = '{$email}'");
-        $a = $res[0]['role_idrole'];
-        //if ( $a != 1 ) {
-        if ($a == 1 || $a == 2) {
-            //$msg = 'У Вас нет прав на добавление материалов!';
-            $db->query("INSERT INTO material (materialname, materialdescription) VALUES ('{$materialname}', '{$materialdescription}') ");
-            header('location: material.php?msg=Материал успешно добавлен!');
-        } else {
-            $msg = 'У Вас нет прав на добавление материала!';
-//			$db->query( "INSERT INTO unit (`unitname`) VALUES ('{$unitname}') " );
-//			header( 'location: unit.php?msg=Отдел успешно добавлен!' );
-        }
+        $material_name = $db->escape($form->getMaterialName());
+        $count = $db->escape($form->getCount());
+        $price = $db->escape($form->getPrice());
+        $notice = $db->escape($form->getNotice());
+        $storehouse_idstorehouse = $db->escape($form->getStorehouse_idstorehouse());
+        $adoptiondate = $db->escape($form->getAdoptiondate());
+        $responsible_person = $db->escape($form->getResponsible_person());
+        $db->query("INSERT INTO material (material_name, `count`, price, notice, storehouse_idstorehouse, adoptiondate, responsible_person) VALUES ('{$material_name}', '{$count}', '{$price}', '{$notice}', '{$storehouse_idstorehouse}', '{$adoptiondate}', '{$responsible_person}') ");
+        header('location: material.php?msg=Материал успешно добавлен!');
     } else {
         $msg = 'Пожалуйста, заполните все поля';
     }
@@ -50,56 +44,60 @@ if ($_POST) {
         <div class="col-sm">
             <div class="text-justify border border-bottom-0 border-right-0"
                  style="line-height: 40px; padding-left: 10px; padding-right: 10px;">
-
                 <b style="color: red;"><?= $msg; ?></b>
                 <form method="post">
                     <div class="form-group">
-                        <label for="productname">Название материала</label>
-                        <input type="text" class="form-control" id="taskname" placeholder="Название материала"
-                               name="taskname"
+                        <label for="material_name">Название материала</label>
+                        <input type="text" class="form-control" id="material_name" placeholder="Название материала"
+                               name="material_name"
                                value="<?= $form->getMaterialName(); ?>">
                     </div>
                     <div class="form-group">
-                        <label for="productamount">Описание материала</label>
-                        <input type="text" class="form-control" id="taskdescription"
-                               placeholder="Описание материала" name="taskdescription"
+                        <label for="notice">Описание материала</label>
+                        <input type="text" class="form-control" id="notice"
+                               placeholder="Описание материала" name="notice"
                                value="<?= $form->getNotice() ?>">
                     </div>
                     <div class="form-group">
-                        <label for="productamount">Стоимость материала</label>
-                        <input type="text" class="form-control" id="taskdescription"
-                               placeholder="Стоимость материала" name="taskdescription"
+                        <label for="price">Стоимость материала</label>
+                        <input type="text" class="form-control" id="price"
+                               placeholder="Стоимость материала" name="price"
                                value="<?= $form->getPrice() ?>">
                     </div>
-
                     <div class="form-group">
-                        <label for="productamount">Количество</label>
-                        <input type="text" class="form-control" id="taskdescription"
-                               placeholder="Количество" name="taskdescription"
+                        <label for="count">Количество</label>
+                        <input type="text" class="form-control" id="count"
+                               placeholder="Количество" name="count"
                                value="<?= $form->getCount() ?>">
                     </div>
-
                     <div class="form-group">
-                        <label for="productamount">Место хранения</label>
-                        <input type="text" class="form-control" id="taskdescription"
-                               placeholder="Место хранения" name="taskdescription"
-                               value="<?= $form->getNotice() ?>">
+                        <label for="storehouse">Место хранения</label>
+                        <select class="form-control" name="storehouse_idstorehouse" id="storehouse">
+                            <?php
+                            $storehouse = $db->query("SELECT idstorehouse, storename FROM storehouse");
+                            foreach ($storehouse as $itemstorehouse) {
+                                ?>
+                                <option value="<?php echo $itemstorehouse['idstorehouse'] ?>"><?php echo $itemstorehouse['storename'] ?></option>
+                            <?php } ?>
+                        </select>
                     </div>
-
                     <div class="form-group">
-                        <label for="productamount">Дата добавления</label>
-                        <input type="text" class="form-control" id="taskdescription"
-                               placeholder="Дата добавления" name="taskdescription"
-                               value="<?= $form->getNotice() ?>">
+                        <label for="adoptiondate">Дата добавления</label>
+                        <input type="date" class="form-control" id="adoptiondate"
+                               placeholder="Дата добавления" name="adoptiondate"
+                               value="<?= $form->getAdoptiondate() ?>">
                     </div>
-
                     <div class="form-group">
-                        <label for="productamount">Отвественный сотрудник</label>
-                        <input type="text" class="form-control" id="taskdescription"
-                               placeholder="Отвественный сотрудник" name="taskdescription"
-                               value="<?= $form->getNotice() ?>">
+                        <label for="responsible_person">Отвественный сотрудник</label>
+                        <select class="form-control" name="responsible_person" id="responsible_person">
+                            <?php
+                            $responsible_person = $db->query("SELECT idemployee,  `name`, secondname FROM employee");
+                            foreach ($responsible_person as $itemresponsible_person) {
+                                ?>
+                                <option value="<?php echo $itemresponsible_person['idemployee'] ?>"><?php echo $itemresponsible_person['name'] . " " . $itemresponsible_person['secondname'] ?></option>
+                            <?php } ?>
+                        </select>
                     </div>
-
                     <button type="submit" class="btn btn-info">Сохранить</button>
                     <a href="material.php" class="btn btn-info">Отмена</a>
 
